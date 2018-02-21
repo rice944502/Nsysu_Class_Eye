@@ -24,10 +24,12 @@ const Users = sequelize.define('users', {
 		type: Sequelize.STRING
 	},
 	credit: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		defaultValue: 0
 	},
 	state: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		defaultValue: 0
 	},
 	url: {
 		type: Sequelize.STRING
@@ -178,6 +180,7 @@ const Answers = sequelize.define('answers', {
 	}
 });
 
+//sequelize.sync({fource: true})
 sequelize.sync();
 
 module.exports = {
