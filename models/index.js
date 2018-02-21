@@ -175,5 +175,8 @@ sequelize.sync();
 module.exports = {
 	sequelize,
 	Users,
-	Logins
+	Logins,
+	Shares,
+	Questions,
+	Answers
 };
