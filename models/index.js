@@ -35,6 +35,10 @@ const Users = sequelize.define('users', {
 	create_time: {
 		type: Sequelize.DATE,
 		defaultValue: Sequelize.NOW
+	},
+	update_date: {
+		type: Sequelize.DATE,
+		defaultValue: Sequelize.NOW
 	}
 });
 
