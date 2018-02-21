@@ -12,6 +12,9 @@ let transporter = nodemailer.createTransport({
 var register = (email, password, confirmPassword, department) => {
 	// status: [0, 1, 2, 3, 4] => ['success', 'input error', 'user exists ans was verify', 'user exists but no verify', 'server error']
 	return new Promise((resolve, reject) => {
+		if (!email || !password || !confirmPassword || !department) {
+			reject({status: 1, error: 'input error'});
+		}
 		if (email.search(/^[A-Za-z][0-9]{9}$/) == -1 || password.search(/^[A-Za-z0-9]{8,20}$/) == -1 ||
 				department.search(/^.{3,255}$/) == -1 || password != confirmPassword) {
 			reject({status: 1, error: 'input error'});
@@ -51,7 +54,7 @@ var register = (email, password, confirmPassword, department) => {
 var sendMail = function(email, url) {
 	return new Promise((resolve, reject) => {
 		transporter.sendMail({
-			from: 'nsysu.class.eye@gmail.com',
+			from: config.gmail.user,
 			to: email,
 			subject: '中山課程眼註冊確認信',
 			html: '<strong>此信為系統發出，請勿直接回覆</strong>' + 
