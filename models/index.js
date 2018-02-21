@@ -32,13 +32,13 @@ const Users = sequelize.define('users', {
 	url: {
 		type: Sequelize.STRING
 	},
-	create_time: {
+	createdAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.NOW
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 	},
-	update_date: {
+	updatedAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.NOW
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 	}
 });
 
@@ -54,9 +54,13 @@ const Logins = sequelize.define('logins', {
 	address: {
 		type: Sequelize.STRING
 	},
-	create_time: {
+	createdAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.NOW
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+	},
+	updatedAt: {
+		type: Sequelize.DATE,
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 	}
 });
 
@@ -102,13 +106,13 @@ const Shares = sequelize.define('shares', {
 	visible: {
 		type: Sequelize.INTEGER
 	},
-	post_date:  {
+	createdAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.NOW
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 	},
-	update_date: {
+	updatedAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.NOW
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
 	}
 });
 
@@ -133,13 +137,13 @@ const Questions = sequelize.define('questions', {
 	dislike: {
 		type: Sequelize.INTEGER
 	},
-	post_date:  {
+	createdAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.NOW
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 	},
-	update_date: {
+	updatedAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.NOW
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
 	}
 });
 
@@ -164,13 +168,13 @@ const Answers = sequelize.define('answers', {
 	dislike: {
 		type: Sequelize.INTEGER
 	},
-	post_date:  {
+	createdAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.NOW
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 	},
-	update_date: {
+	updatedAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.NOW
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
 	}
 });
 
