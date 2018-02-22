@@ -1,7 +1,9 @@
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var bcrypt = require('bcrypt');
+var jwt = require('jwt-simple');
 var {Users, Logins} = require('../models/index');
+var secret = require('../config/secret');
 var config = require('../config/mail.json');
 var global = require('../config/global');
 
@@ -106,13 +108,17 @@ var login = (email, password, ip) => {
 			reject({status: 1, error: 'input error'});
 		}
 		Users.findOne({ where: {email: global.numberToEmail(email)} })
-			.then((data) => {
-				bcrypt.compare(password, data.password)
+			.then((user) => {
+				bcrypt.compare(password, user.password)
 					.then((res) => {
 						if (res) {
 							Logins.build({ email: global.numberToEmail(email), address: ip }).save()
 								.then(() => {
-									resolve({status: 0});
+									var token = jwt.encode({
+										iss: user.email,
+										exp: new Date(new Date().getTime() + 1000 * 60 * 10)
+									}, secret.secret);
+									resolve({status: 0, token: token});
 								})
 								.catch((err) => {
 									reject({status: 2, error: err});

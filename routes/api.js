@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var jwt = require('jwt-simple');
 
+var secret = require('../config/secret.json');
 var user = require('../controllers/user');
 
 router.post('/register', (req, res, next) => {
@@ -32,5 +34,21 @@ router.post('/login', (req, res, next) => {
 			res.status(400).json({err});
 		})
 });
+
+router.use((req, res, next) => {
+	var token = req.body.token || req.query.token || req.headers['x-access-token'];
+	if (token) {
+		var decode = jwt.decode(token, secret.secret);
+		if (decode.exp <= new Date()) {
+			return res.status(400).json({error: 'token has expired'});
+		} else {
+			next();
+		}
+	} else {
+		return res.status(403).json({error: 'token not found'});
+	}
+});
+
+// write function after that which need login
 
 module.exports = router;
