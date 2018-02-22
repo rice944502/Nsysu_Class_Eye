@@ -100,10 +100,12 @@ const Shares = sequelize.define('shares', {
 		type: Sequelize.STRING
 	},
 	like: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		defaultValue: 0
 	},
 	dislike: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		defaultValue: 0
 	},
 	visible: {
 		type: Sequelize.INTEGER
@@ -134,10 +136,12 @@ const Questions = sequelize.define('questions', {
 		type: Sequelize.STRING
 	},
 	like: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		defaultValue: 0
 	},
 	dislike: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		defaultValue: 0
 	},
 	createdAt: {
 		type: Sequelize.DATE,
@@ -165,10 +169,12 @@ const Answers = sequelize.define('answers', {
 		type: Sequelize.STRING
 	},
 	like: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		defaultValue: 0
 	},
 	dislike: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		defaultValue: 0
 	},
 	createdAt: {
 		type: Sequelize.DATE,
@@ -180,8 +186,8 @@ const Answers = sequelize.define('answers', {
 	}
 });
 
-sequelize.sync({force: true})
-//sequelize.sync();
+//sequelize.sync({force: true})
+sequelize.sync();
 
 module.exports = {
 	sequelize,
