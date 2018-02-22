@@ -116,7 +116,7 @@ const Shares = sequelize.define('shares', {
 	},
 	updatedAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 	}
 });
 
@@ -149,7 +149,7 @@ const Questions = sequelize.define('questions', {
 	},
 	updatedAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 	}
 });
 
@@ -182,7 +182,7 @@ const Answers = sequelize.define('answers', {
 	},
 	updatedAt: {
 		type: Sequelize.DATE,
-		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
+		defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 	}
 });
 
