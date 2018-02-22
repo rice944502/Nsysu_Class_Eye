@@ -97,10 +97,39 @@ var registerVerify = (e, r) => {
 				reject({status: 2, error: err})
 			})
 	})
-		
+};
+
+var login = (email, password, ip) => {
+	// status: [0, 1, 2] => [login success, login fail, server error]
+	return new Promise((resolve, reject) => {
+		if (!password) {
+			reject({status: 1, error: 'input error'});
+		}
+		Users.findOne({ where: {email: global.numberToEmail(email)} })
+			.then((data) => {
+				bcrypt.compare(password, data.password)
+					.then((res) => {
+						if (res) {
+							Logins.build({ email: global.numberToEmail(email), address: ip }).save()
+								.then(() => {
+									resolve({status: 0});
+								})
+								.catch((err) => {
+									reject({status: 2, error: err});
+								})
+						} else {
+							reject({status: 1, error: 'login fail'});
+						}
+					})
+			})
+			.catch((err) => {
+				reject({status: 2, error: err});
+			})
+	});
 };
 
 module.exports = {
 	register,
-	registerVerify
+	registerVerify,
+	login
 };
