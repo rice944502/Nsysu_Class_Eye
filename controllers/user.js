@@ -3,6 +3,7 @@ var smtpTransport = require('nodemailer-smtp-transport');
 var bcrypt = require('bcrypt');
 var {Users, Logins} = require('../models/index');
 var config = require('../config/mail.json');
+var global = require('../config/global');
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -19,7 +20,7 @@ var register = (email, password, confirmPassword, department) => {
 				department.search(/^.{3,255}$/) == -1 || password != confirmPassword) {
 			reject({status: 1, error: 'input error'});
 		}
-		email += '@student.nsysu.edu.tw';
+		email = global.numberToEmail(email);
 		Users.findOne({ where: { email: email} })
 			.then((data) => {
 				if (data && data.state > 0) {
@@ -31,9 +32,9 @@ var register = (email, password, confirmPassword, department) => {
 						email: email,
 						password: bcrypt.hashSync(password, password.length),
 						department: department,
-						url: config.link + 'e=' + email + '&r=' + new Date().getTime()
+						url: new Date().getTime()
 					};
-					sendMail(email, userData.url)
+					sendMail(email, config.link + 'e=' + global.emailToNumber(email) + '&r=' + userData.url)
 						.then(() => {
 							Users.build(userData).save()
 								.then(() => {
