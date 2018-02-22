@@ -72,6 +72,9 @@ const Shares = sequelize.define('shares', {
 		autoIncrement: true,
 		primaryKey: true
 	},
+	year: {
+		type: Sequelize.STRING
+	},
 	department: {
 		type: Sequelize.STRING
 	}, 
