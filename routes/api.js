@@ -51,9 +51,19 @@ router.use((req, res, next) => {
 	}
 });
 
+router.get('/share', (req, res, next) => {
+	share.searchShare(req.body.year, req.body.department, req.body.classname, req.body.teachername)
+		.then((result) => {
+			res.status(200).json(result.data)
+		})
+		.catch((err) => {
+			res.status(400).json({err})
+		})
+});
+
 router.post('/share', (req, res, next) => {
 	//(user, department, classname, teachername, experience, getscore, coolscore, learnscore, recommendscore)
-	share.toShare(req.body.user, req.body.department, req.body.classname, req.body.teachername, req.body.experience, req.body.getscore, req.body.coolscore, req.body.learnscore, req.body.recommendscore)
+	share.toShare(req.body.user, req.body.year, req.body.department, req.body.classname, req.body.teachername, req.body.experience, req.body.getscore, req.body.coolscore, req.body.learnscore, req.body.recommendscore)
 		.then((data) => {
 			res.status(200).json({data});
 		})

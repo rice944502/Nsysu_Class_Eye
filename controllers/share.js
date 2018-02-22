@@ -1,15 +1,18 @@
 var {Users, Shares} = require('../models/index');
 var secret = require('../config/secret');
 var jwt = require('jwt-simple');
+var Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
-var toShare = (user, department, classname, teachername, experience, getscore, coolscore, learnscore, recommendscore) => {
+var toShare = (user, year, department, classname, teachername, experience, getscore, coolscore, learnscore, recommendscore) => {
 	//status: [0, 1, 2] => [success, input error, server error]
 	return new Promise((resolve, reject) => {
-		if (!department || !classname || !teachername || !experience || !getscore || !coolscore || !learnscore || !recommendscore) {
+		if (!year || !department || !classname || !teachername || !experience || !getscore || !coolscore || !learnscore || !recommendscore) {
 			reject({status: 1, error: 'input error'});
 		}
 		var data = {
 			editer: user,
+			year: year,
 			department: department,
 			classname: classname,
 			teachername: teachername,
@@ -29,6 +32,28 @@ var toShare = (user, department, classname, teachername, experience, getscore, c
 	})
 }
 
+var searchShare = (year, department, classname, teachername) => {
+	//status: [0, 1] => [success, server error]
+	return new Promise((resolve, reject) => {
+		var searchData = {
+			department: { [Op.like]: '%' + department + '%' },
+			classname: { [Op.like]: '%' + classname + '%' },
+			teachername: { [Op.like]: '%' + teachername + '%' }
+		};
+		if (year != '*') {
+			searchData.year = { [Op.like]: '%' + year + '%' };
+		}
+		Shares.findAll({ where: searchData })
+			.then((data) => {
+				resolve({status: 0, data: data});
+			})
+			.catch((err) => {
+				reject({status: 1, error: err});
+			})
+	})
+};
+
 module.exports = {
-	toShare
+	toShare,
+	searchShare
 };
