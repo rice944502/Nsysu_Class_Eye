@@ -180,8 +180,8 @@ const Answers = sequelize.define('answers', {
 	}
 });
 
-//sequelize.sync({fource: true})
-sequelize.sync();
+sequelize.sync({force: true})
+//sequelize.sync();
 
 module.exports = {
 	sequelize,
