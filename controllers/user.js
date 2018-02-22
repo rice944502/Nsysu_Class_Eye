@@ -76,6 +76,31 @@ var sendMail = function(email, url) {
 	});
 };
 
+var registerVerify = (e, r) => {
+	//status: [0, 1, 2] => [success, not find url, server error];
+	return new Promise((resolve, reject) => {
+		Users.count({ where: {email: global.numberToEmail(e), url: r} })
+			.then((cnt) => {
+				if (!cnt) {
+					reject({status: 1, error: 'not find url'});
+				} else {
+					Users.update( { state: 1, url: '' }, { where: {email: global.numberToEmail(e)} } )
+						.then(() => {
+							resolve({status: 0});
+						})
+						.catch((err) => {
+							reject({status: 2, error: err})
+						})
+				}
+			})
+			.catch((err) => {
+				reject({status: 2, error: err})
+			})
+	})
+		
+};
+
 module.exports = {
-	register
+	register,
+	registerVerify
 };
