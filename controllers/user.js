@@ -116,7 +116,7 @@ var login = (email, password, ip) => {
 								.then(() => {
 									var token = jwt.encode({
 										iss: user.email,
-										exp: new Date(new Date().getTime() + 1000 * 60 * 10)
+										exp: new Date(new Date().getTime() + 1000 * 60 * 10).getTime()
 									}, secret.secret);
 									resolve({status: 0, token: token});
 								})
