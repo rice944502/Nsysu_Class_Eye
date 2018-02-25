@@ -3,8 +3,12 @@ var router = express.Router();
 var request = require('request');
 var config = require('../config/global');
 
-var callGetApi = (url) => {
+var callGetApi = (url, sendData) => {
   return new Promise((resolve, reject) => {
+    url += '?';
+    for(var obj in sendData) {
+      url += obj + '=' + sendData[obj] + '&';
+    }
     request(config.host + url, (err, res, body) => {
       if (!err) {
         resolve({status: res.statusCode, body: body});
@@ -12,6 +16,21 @@ var callGetApi = (url) => {
         reject(err);
       }
     })
+  });
+};
+
+var callPostApi = (url, sendData) => {
+  return new Promise((resolve, reject) => {
+    request.post({
+      url: config.host + url,
+      form: sendData
+    }, (err, res, body) => {
+      if (!err) {
+        resolve({status: res.statusCode, body: body});
+      } else {
+        reject(err);
+      }
+    });
   });
 };
 
