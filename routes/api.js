@@ -5,6 +5,7 @@ var jwt = require('jwt-simple');
 var secret = require('../config/secret.json');
 var user = require('../controllers/user');
 var	share = require('../controllers/share');
+var spider = require('../controllers/spider');
 
 router.post('/register', (req, res, next) => {
 	user.register(req.body.email, req.body.password, req.body.confirm, req.body.department)
@@ -30,6 +31,16 @@ router.post('/login', (req, res, next) => {
 	user.login(req.body.email, req.body.password, req.ip)
 		.then((data) => {
 			res.status(200).json({data});
+		})
+		.catch((err) => {
+			res.status(400).json({err});
+		})
+});
+
+router.get('/classData', (req, res, next) => {
+	spider.getClassData
+		.then((data) => {
+			res.status(200).json(data);
 		})
 		.catch((err) => {
 			res.status(400).json({err});
@@ -71,7 +82,5 @@ router.post('/share', (req, res, next) => {
 			res.status(400).json({err});
 		})
 })
-
-// write function after that which need login
 
 module.exports = router;
