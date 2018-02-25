@@ -46,6 +46,24 @@ router.get('/register', function(req, res, next) {
   res.render('register', { title: config.title });
 });
 
+router.post('/register', async function(req, res, next) {
+  var data = await callPostApi('register', req.body);
+  if (data.status == 200) {
+    res.redirect('/login');
+  } else {
+    res.redirect('/register');
+  }
+});
+
+router.get('/registerVerify', async function(req, res, next) {
+  var data = await callGetApi('/registerVerify', req.query);
+  if (data.status == 200) {
+    res.redirect('/login');
+  } else {
+    res.redirect('/register');
+  }
+});
+
 router.get('/search', async function(req, res, next) {
   var data = await callGetApi('classData');
   res.render('search', { title: config.title, data: JSON.parse(data.body) });
