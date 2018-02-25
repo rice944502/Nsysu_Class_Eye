@@ -2,10 +2,83 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel="stylesheet" href="/stylesheets/custom.min.css" />
+    <script src="./javascripts/navbar.js"></script>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+  	<div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+	    <div class="container">
+	      <a class="navbar-brand" href="/"><%= title %></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
+	      <div class="collapse navbar-collapse" id="navbarResponsive">
+	        <ul class="navbar-nav mr-auto">
+	          <li class="nav-item active">
+	            <a class="nav-link" href="/">Home</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="share">Share</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="search">Search</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="question">Question</a>
+	          </li>
+	        </ul>
+	        <form class="form-inline my-2 my-lg-0">
+	          <a href="/login" class="btn btn-secondary my-2 my-sm-0">Login</a>
+	        </form>
+	      </div>
+	    </div>
+	</div>
+	<div class="container">
+		<div class="container">
+			<div class="row row-margin-top">
+				<img src="./images/login.png" width="128" height="128" />
+				<div style="margin-left: 20px;">
+					<h3>登入系統</h3>
+					<p>我們使用學校信箱進行註冊，確保每個人都是中山的學生，降低得到錯誤資訊的風險。</p>
+				</div>
+			</div>
+			<div class="row row-margin-top">
+				<img src="./images/credit.png" width="128" height="128" />
+				<div style="margin-left: 20px;">
+					<h3>信用機制</h3>
+					<p>我們設計一種信用機制，當一個人的信用過低時，將會在一段時間內減少他一些使用權限。</p>
+				</div>
+			</div>
+			<div class="row row-margin-top">
+				<img src="./images/anonymous.png" width="128" height="128" />
+				<div style="margin-left: 20px;">
+					<h3>絕對保密</h3>
+					<p>本平台僅會顯示您的系所，保證不會公開您的個人資訊或顯示您的信箱，請放心使用所有功能。</p>
+				</div>
+			</div>
+			<div class="row row-margin-top">
+				<img src="./images/share.png" width="128" height="128" />
+				<div style="margin-left: 20px;">
+					<h3>分享評價</h3>
+					<p>在這裡，你可以分享自己的上課經驗，提供他人參考。</p>
+				</div>
+			</div>
+			<div class="row row-margin-top">
+				<img src="./images/search.png" width="128" height="128" />
+				<div style="margin-left: 20px;">
+					<h3>查詢評價</h3>
+					<p>您可以在此查看他人分享的課程資訊，作為選課的依據。</p>
+				</div>
+			</div>
+			<div class="row row-margin-top">
+				<img src="./images/question.png" width="128" height="128" />
+				<div style="margin-left: 20px;">
+					<h3>選課問題</h3>
+					<p>若您有對於選課有任何問題，可於此發問，您也也可於此回答他人問題。</p>
+				</div>
+			</div>
+		</div>
+	</div>
   </body>
 </html>

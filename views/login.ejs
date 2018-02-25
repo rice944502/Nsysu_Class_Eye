@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel="stylesheet" href="/stylesheets/custom.min.css" />
+    <script src="./javascripts/navbar.js"></script>
+  </head>
+  <body>
+  	<div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+	    <div class="container">
+	      <a class="navbar-brand" href="/"><%= title %></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
+	      <div class="collapse navbar-collapse" id="navbarResponsive">
+	        <ul class="navbar-nav mr-auto">
+	          <li class="nav-item active">
+	            <a class="nav-link" href="/">Home</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="share">Share</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="search">Search</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="question">Question</a>
+	          </li>
+	        </ul>
+	        <form class="form-inline my-2 my-lg-0">
+	          <a href="/login" class="btn btn-secondary my-2 my-sm-0">Login</a>
+	        </form>
+	      </div>
+	    </div>
+	</div>
+	<div class="container">
+	    <div class="container col-md-6 col-md-offset-2">
+	        <form action="/login" method="post">
+	        	<legend>Login</legend>
+	            <div class="form-group has-error">
+	                <label for="exampleInputEmail1 inputError">Email</label>
+	                <div class="input-group mb-3">
+		            	<input type="text" class="form-control" name="email" id="exampleInputEmail1 inputError" placeholder="Email address">
+		                <span class="input-group-text" id="basic-addon2">@student.nsysu.edu.tw</span>	                	
+	                </div>
+	            </div>
+	            <div class="form-group has-warning">
+	                <label for="exampleInputPassword1 inputWarning">Password</label>
+	                <input type="password" class="form-control" name="password" id="exampleInputPassword1 inputWarning" placeholder="************">
+	            </div>
+	            <div class="text-right">
+		            <button type="submit" class="btn btn-outline-primary">Login</button>
+		            <a href="/register" class="btn btn-outline-secondary">Register</a>	
+	            </div>
+	        </form>
+	    </div>
+	</div>
+  </body>
+</html>

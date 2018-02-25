@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel="stylesheet" href="/stylesheets/custom.min.css" />
+    <script src="./javascripts/navbar.js"></script>
+  </head>
+  <body>
+  	<div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+	    <div class="container">
+	      <a class="navbar-brand" href="/"><%= title %></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
+	      <div class="collapse navbar-collapse" id="navbarResponsive">
+	        <ul class="navbar-nav mr-auto">
+	          <li class="nav-item active">
+	            <a class="nav-link" href="/">Home</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="share">Share</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="search">Search</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="question">Question</a>
+	          </li>
+	        </ul>
+	        <form class="form-inline my-2 my-lg-0">
+	          <a href="/login" class="btn btn-secondary my-2 my-sm-0">Login</a>
+	        </form>
+	      </div>
+	    </div>
+	</div>
+	<div class="container">
+	    <div class="container col-md-6 col-md-offset-2">	
+	        <form method="post" action="/register">
+	        	<legend>Sign Up</legend>
+	            <div class="form-group has-error">
+	                <div class="input-group mb-3">
+		            	<input type="text" class="form-control" name="email" placeholder="Email address">
+		                <span class="input-group-text" id="basic-addon2">@student.nsysu.edu.tw</span>	                	
+	                </div>
+	            </div>
+	            <div class="form-group has-warning">
+	                <input type="password" class="form-control" name="password" placeholder="Password">
+	            </div>
+	            <p>Please create a password between 8 - 20 characters and contains English character and number.</p>
+	            <div class="form-group has-warning">
+	                <input type="password" class="form-control" name="confirm" placeholder="Confirm your password">
+	            </div>
+	            <div class="form-group has-warning">
+	                <input type="text" class="form-control" name="department" placeholder="Department">
+	            </div>
+	            <p>ex: 資工系、資工所、資工博</p>
+	            <div class="text-center">
+	            	<button type="submit" class="btn btn-outline-primary">Sing Up</button>
+	            </div>
+	        </form>
+	    </div>
+	</div>
+  </body>
+</html>
