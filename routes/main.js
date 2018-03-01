@@ -42,6 +42,16 @@ router.get('/login', function(req, res, next) {
   res.render('login', { title: config.title });
 });
 
+router.post('/login', async function(req, res, next) {
+  var data = await callPostApi('/login', req.body);
+  if (data.status == 200) {
+    req.session.accessToken = data.body.token;
+    res.redirect('/');
+  } else {
+    res.redirect('/login');
+  }
+});
+
 router.get('/register', function(req, res, next) {
   res.render('register', { title: config.title });
 });
