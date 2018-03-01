@@ -30,7 +30,7 @@ router.get('/registerVerify', (req, res, next) => {
 router.post('/login', (req, res, next) => {
 	user.login(req.body.email, req.body.password, req.ip)
 		.then((data) => {
-			res.status(200).json({data});
+			res.status(200).json(data);
 		})
 		.catch((err) => {
 			res.status(400).json({err});
