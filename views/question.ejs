@@ -36,14 +36,25 @@
 		</div>
 		<div class="container">
 			<div class="container col-md-6 col-md-offset-3">
+				<div class="d-flex">
+					<a href="/ask" class="btn btn-outline-secondary">發問</a>
+					<form class="form-inline ml-auto" action="/question" method="post">
+						<input class="form-control mr-sm-2" type="text" placeholder="Search">
+						<button class="btn btn-outline-primary" type="submit">Search</button>
+					</form>
+				</div>
 				<% for(var i=0; i<10; i++) { %>
 					<div class="card row-margin-top">
 						<div class="card-body">
-							<h5 class="card-title">問題標題</h5>
+							<h3 class="card-title">問題標題</h3>
 							<p class="card-text"><% for(var j=0; j<30; j++) { %>ㄦ<% } %>...</p>
-							<img src="./images/like.png" />
-							<img src="./images/dislike.png" />
-							<a href="#" class="btn btn-primary btn-sm pull-right">點我看更多</a>
+							<div class="d-flex">
+								<div>
+									<img src="./images/like.png" /> 123
+									<img src="./images/dislike.png" /> 456
+								</div>
+									<a href="#" class="btn btn-primary btn-sm ml-auto">點我看更多</a>
+								</div>
 						</div>
 					</div>
 				<% } %>
