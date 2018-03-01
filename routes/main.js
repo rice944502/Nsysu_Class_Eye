@@ -84,8 +84,23 @@ router.get('/share', async function(req, res, next) {
   res.render('share', { title: config.title, data: JSON.parse(data.body), score: [config.score, config.assess] });
 });
 
+router.get('/ask', function(req, res, next) {
+  res.render('ask', { title: config.title });
+});
+
+router.post('/ask', function(req, res, next) {
+  // TODO
+  res.redirect('/question');
+});
+
 router.get('/question', function(req, res, next) {
+  // TODO
   res.render('question', { title: config.title });
 });
+
+router.post('/question', function(req, res, next) {
+  // TODO
+  res.redirect('/question');
+})
 
 module.exports = router;
