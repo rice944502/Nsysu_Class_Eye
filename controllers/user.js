@@ -12,14 +12,15 @@ let transporter = nodemailer.createTransport({
     auth: config.gmail
 });
 
-var register = (email, password, confirmPassword, department) => {
+var register = (email, password, confirmPassword, department, nickname) => {
 	// status: [0, 1, 2, 3, 4] => ['success', 'input error', 'user exists ans was verify', 'user exists but no verify', 'server error']
 	return new Promise((resolve, reject) => {
-		if (!email || !password || !confirmPassword || !department) {
+		if (!email || !password || !confirmPassword || !department || !nickname) {
 			reject({status: 1, error: 'input error'});
 		}
 		if (email.search(/^[A-Za-z][0-9]{9}$/) == -1 || password.search(/^[A-Za-z0-9]{8,20}$/) == -1 ||
-				department.search(/^.{3,255}$/) == -1 || password != confirmPassword) {
+				department.search(/^.{3,255}$/) == -1 || password != confirmPassword ||
+				nickname.search(/^.{3,18}$/)) {
 			reject({status: 1, error: 'input error'});
 		}
 		email = global.numberToEmail(email);
@@ -34,9 +35,10 @@ var register = (email, password, confirmPassword, department) => {
 						email: email,
 						password: bcrypt.hashSync(password, password.length),
 						department: department,
+						nickname: nickname,
 						url: new Date().getTime()
 					};
-					sendMail(email, config.link + 'e=' + global.emailToNumber(email) + '&r=' + userData.url)
+					sendMail(email, config.link + 'e=' + global.emailToNumber(email) + '&r=' + userData.url, nickname)
 						.then(() => {
 							Users.build(userData).save()
 								.then(() => {
@@ -54,14 +56,14 @@ var register = (email, password, confirmPassword, department) => {
 	});
 };
 
-var sendMail = function(email, url) {
+var sendMail = function(email, url, nickname) {
 	return new Promise((resolve, reject) => {
 		transporter.sendMail({
 			from: config.gmail.user,
 			to: email,
 			subject: '中山課程眼註冊確認信',
 			html: '<strong>此信為系統發出，請勿直接回覆</strong>' + 
-				'<p>您好！歡迎您註冊中山選課眼，<br>這封信是由中山選課眼的會員註冊系統所寄出，<br>' +
+				'<p>親愛的' + nickname + '您好！歡迎您註冊中山選課眼，<br>這封信是由中山選課眼的會員註冊系統所寄出，<br>' +
 				'請點選下面的網址來進行註冊的下一個步驟：</p>' +
 				'<p><a href="' + url + '">' + url + '</a></p>' +
 				'<p>如以上網址無法通過認證，請點選<a href="' + url + '">此處</a>。</p>' +
