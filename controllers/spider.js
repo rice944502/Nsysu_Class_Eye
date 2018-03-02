@@ -22,12 +22,35 @@ var getClassData = new Promise(function(resolve, reject){
 			}
 			resolve(res);
 		} else {
-			console.log(error);
+			reject(error);
+		}
+	});
+});
+
+var getDeparmentList = new Promise(function(resolve, reject) {
+	request({
+		url: 'http://selcrs.nsysu.edu.tw/stu_query/crs_mst_qry/crs_mst_query_top.asp',
+		method: 'get',
+		encoding: null
+	}, function(err, response, body) {
+		if (!err && response.statusCode == 200) {
+			var res = [];
+			body = iconv.decode(body, "Big5");
+			var $ = cheerio.load(body);
+			var DPT1 = $("select[name=DPT1] > option");
+			for(var i=2; i<DPT1.length; i++) {
+				if (DPT1[i].children[0].data.search('院') == -1) {
+					res.push(DPT1[i].children[0].data.slice(6));
+				}
+			}
+			resolve(res);
+		} else {
 			reject(error);
 		}
 	});
 });
 
 module.exports = {
-	getClassData
+	getClassData,
+	getDeparmentList
 };

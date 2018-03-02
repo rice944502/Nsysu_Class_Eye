@@ -52,8 +52,9 @@ router.post('/login', async function(req, res, next) {
   }
 });
 
-router.get('/register', function(req, res, next) {
-  res.render('register', { title: config.title });
+router.get('/register', async function(req, res, next) {
+  var data = await callGetApi('/departmentList');
+  res.render('register', { title: config.title, department: JSON.parse(data.body) });
 });
 
 router.post('/register', async function(req, res, next) {

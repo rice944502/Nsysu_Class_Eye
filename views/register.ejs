@@ -52,9 +52,12 @@
 	                <input type="password" class="form-control" name="confirm" placeholder="Confirm your password">
 	            </div>
 	            <div class="form-group has-warning">
-	                <input type="text" class="form-control" name="department" placeholder="Department">
+								<select name="department" class="custom-select">
+									<% for(let i=0; i<department.length; i++) { %>
+									<option value='<%= department[i] %>'><%= department[i] %></option>
+									<% } %>
+								</select>
 	            </div>
-	            <p>ex: 資工系、資工所、資工博</p>
 	            <div class="text-center">
 	            	<button type="submit" class="btn btn-outline-primary">Sing Up</button>
 	            </div>

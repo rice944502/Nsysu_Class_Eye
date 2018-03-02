@@ -15,7 +15,17 @@ router.post('/register', (req, res, next) => {
 		.catch((data) => {
 			res.status(400).json({data});
 		})
-})
+});
+
+router.get('/departmentList', (req, res, next) => {
+	spider.getDeparmentList
+		.then((data) => {
+			res.status(200).json(data);
+		})
+		.catch((err) => {
+			res.status(400).json({err});
+		})
+});
 
 router.get('/registerVerify', (req, res, next) => {
 	user.registerVerify(req.query.e, req.query.r)
