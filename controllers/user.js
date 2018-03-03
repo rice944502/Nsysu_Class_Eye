@@ -2,10 +2,13 @@ var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var bcrypt = require('bcrypt');
 var jwt = require('jwt-simple');
+var redis = require('redis');
+
 var {Users, Logins} = require('../models/index');
 var secret = require('../config/secret');
 var config = require('../config/mail.json');
 var global = require('../config/global');
+var redisConfig = require('../config/redis.json');
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -120,7 +123,12 @@ var login = (email, password, ip) => {
 										iss: user.email,
 										exp: new Date(new Date().getTime() + 1000 * 60 * 10).getTime()
 									}, secret.secret);
-									resolve({status: 0, token: token});
+									var cache = redis.createClient(redisConfig.port, redisConfig.host);
+									cache.set(user.email, token, (err, result) => {
+										if (err) throw err;
+										cache.expire(user.email, 1000 * 60 * 10);
+										resolve({status: 0, token: token});	
+									});
 								})
 								.catch((err) => {
 									reject({status: 2, error: err});
