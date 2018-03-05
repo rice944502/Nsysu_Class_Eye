@@ -45,7 +45,6 @@ router.get('/login', function(req, res, next) {
 router.post('/login', async function(req, res, next) {
   var data = await callPostApi('/login', req.body);
   if (data.status == 200) {
-    req.session.accessToken = data.body.token;
     res.redirect('/');
   } else {
     res.redirect('/login');
