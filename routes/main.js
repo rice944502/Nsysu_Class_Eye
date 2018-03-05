@@ -52,7 +52,7 @@ router.post('/login', async function(req, res, next) {
 });
 
 router.get('/register', async function(req, res, next) {
-  var data = await callGetApi('/departmentList');
+  var data = await callGetApi('departmentList');
   res.render('register', { title: config.title, department: JSON.parse(data.body) });
 });
 
@@ -66,7 +66,7 @@ router.post('/register', async function(req, res, next) {
 });
 
 router.get('/registerVerify', async function(req, res, next) {
-  var data = await callGetApi('/registerVerify', req.query);
+  var data = await callGetApi('registerVerify', req.query);
   if (data.status == 200) {
     res.redirect('/login');
   } else {
