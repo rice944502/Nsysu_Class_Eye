@@ -5,7 +5,34 @@
 		<link rel="icon" href="/images/favicon.png">
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
     <link rel="stylesheet" href="/stylesheets/custom.min.css" />
-    <script src="./javascripts/navbar.js"></script>
+		<script src="./javascripts/navbar.js"></script>
+		<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+		<script>
+			$(() => {
+				$('#btn').click(function(e) {
+					e.preventDefault();
+					$.ajax({
+						type: 'POST',
+						data: $("form").serialize(),
+						url: '/login',
+						success: function(data) {
+							if (data.status == 200) {
+								localStorage.setItem('x-access-token', JSON.parse(data.body).token);
+								alert('登入成功！');
+								location.href = "/";
+							} else {
+								var error = JSON.parse(data.body).err.status;
+								if (error == 1) {
+									alert("登入失敗！請檢查學號或密碼！");
+								} else if (error == 2) {
+									alert("伺服器錯誤qq");
+								}
+							}
+						}
+					})
+				})
+			});
+		</script>
   </head>
   <body>
   	<div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -49,12 +76,12 @@
 	            <div class="form-group has-warning">
 	                <label for="exampleInputPassword1 inputWarning">Password</label>
 	                <input type="password" class="form-control" name="password" id="exampleInputPassword1 inputWarning" placeholder="************">
-	            </div>
-	            <div class="text-right">
-		            <button type="submit" class="btn btn-outline-primary">Login</button>
-		            <a href="/register" class="btn btn-outline-secondary">Register</a>	
-	            </div>
-	        </form>
+							</div>
+							<div class="text-right">
+								<button type="submit" class="btn btn-outline-primary" id="btn">Login</button>
+								<a href="/register" class="btn btn-outline-secondary">Register</a>	
+							</div>
+					</form>
 	    </div>
 	</div>
 	<%- include footer.ejs %>

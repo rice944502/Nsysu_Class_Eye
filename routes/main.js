@@ -43,12 +43,8 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post('/login', async function(req, res, next) {
-  var data = await callPostApi('/login', req.body);
-  if (data.status == 200) {
-    res.redirect('/');
-  } else {
-    res.redirect('/login');
-  }
+  var data = await callPostApi('login', req.body);
+  res.json(data);
 });
 
 router.get('/register', async function(req, res, next) {
