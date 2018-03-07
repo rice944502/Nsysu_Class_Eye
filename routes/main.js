@@ -40,8 +40,15 @@ router.get('/', function(req, res, next) {
 
 router.use((req, res, next) => {
 	if (req.headers['cookie']) {
-    var token = req.headers['cookie'];
-    req.body.token = req.query.token = token.substr(token.search('=') + 1, token.search(';') == -1 ? token.length : token.search(';') - token.search('=') - 1);
+    var cookie = req.headers['cookie'];
+    cookie = cookie.split(';');
+    for(var i=0; i<cookie.length; i++) {
+      if (cookie[i].substr(0, cookie[i].search('=')) == 'x-access-token') {
+        token = cookie[i].substr(cookie[i].search('=') + 1);
+        break;
+      }
+    }
+    req.body.token = req.query.token = token;
   }
   next();
 });
