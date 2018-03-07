@@ -102,6 +102,11 @@ router.get('/share', async function(req, res, next) {
   res.render('share', { title: config.title, data: JSON.parse(data.body), score: [config.score, config.assess] });
 });
 
+router.post('/shareClass', async function(req, res, nex) {
+  var data = await callPostApi('share', req.body);
+  res.json(data);
+})
+
 router.get('/ask', function(req, res, next) {
   res.render('ask', { title: config.title });
 });

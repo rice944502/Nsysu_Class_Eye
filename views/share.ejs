@@ -77,10 +77,53 @@
       </div>
       <% } %>
       <div class="form-group row">
-        <button type="submit" class="btn btn-outline-primary col-sm-12">Share your experience!</button>
+        <input type="submit" class="btn btn-outline-primary col-sm-12" value="Share your experience!" >
       </div>
     </form>
   </div>
   <%- include footer.ejs %>
+  <script>
+    $(() => {
+      $('form[action=shareClass]').submit((e) => {
+        e.preventDefault();
+        var sendForm = true;
+        for(var i=0; i<$('select').length; i++) {
+          if ($('select').eq(i).val() == '-') {
+            $('select').eq(i).css('border-color', 'red');
+            sendForm = false;
+          } else {
+            $('select').eq(i).css('border-color', '');
+          }
+        }
+        for (var i=0; i<$('input[type=text]').length; i++) {
+          if ($('input[type=text]').eq(i).val() == "") {
+            $('input[type=text]').eq(i).css('border-color', 'red');
+            sendForm = false;
+          } else {
+            $('input[type=text]').eq(i).css('border-color', '');
+          }
+        }
+        $('textarea').css('border-color', $('textarea').val() == '' ? 'red' : '');
+        if ($('textarea').val() == '') sendForm = false;
+        if (!sendForm) {
+          return;
+        }
+        $.ajax({
+          url: '/shareClass',
+          type: 'POST',
+          data: $('form[action=shareClass]').serialize(),
+          success: function(data) {
+            if (data.status == 200) {
+              alert('分享成功！');
+              location.href = 'share';
+            } else {
+              alert('分享失敗！請重新登入！');
+              location.href = 'login';
+            }
+          }
+        })
+      })
+    })
+  </script>
   </body>
 </html>
