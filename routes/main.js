@@ -38,17 +38,26 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: config.title });
 });
 
+router.use((req, res, next) => {
+	if (req.headers['cookie']) {
+    req.body.token = req.query.token = req.headers['cookie'];
+  }
+  next();
+});
+
 router.get('/login', function(req, res, next) {
   res.render('login', { title: config.title });
 });
 
 router.post('/login', async function(req, res, next) {
   var data = await callPostApi('login', req.body);
+  res.cookie('x-access-token', JSON.parse(data.body).token, {maxAge: 60 * 1000 * 10, httpOnly: true});
   res.json(data);
 });
 
 router.get('/logout', async function(req, res, next) {
   var data = await callGetApi('logout', req.query);
+  res.clearCookie('x-access-token');
   res.json(data);
 });
 
