@@ -47,6 +47,11 @@ router.post('/login', async function(req, res, next) {
   res.json(data);
 });
 
+router.get('/logout', async function(req, res, next) {
+  var data = await callGetApi('logout', req.query);
+  res.json(data);
+});
+
 router.get('/register', async function(req, res, next) {
   var data = await callGetApi('departmentList');
   res.render('register', { title: config.title, department: JSON.parse(data.body) });

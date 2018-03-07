@@ -1,13 +1,36 @@
+<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 <script>
     window.onload = () => {
         if (localStorage['x-access-token']) {
             token = localStorage['x-access-token'];
             document.getElementsByTagName('form')[0].innerHTML = `
-                <a href="/profile" class="btn btn-secondary my-2 my-sm-0">Profile</a>
-                <a href="/logout" class="btn btn-primary my-2 my-sm-0">Logout</a>`;
+                <a href="/profile?token=` + token +`" class="btn btn-secondary my-2 my-sm-0">Profile</a>
+                <input type="button" class="btn btn-primary my-2 my-sm-0" onclick='logout()' value="Logout">`
         } else {
             document.getElementsByTagName('form')[0].innerHTML = '<a href="/login" class="btn btn-secondary my-2 my-sm-0">Login</a>';
         }
+    }
+    var logout = () => {
+        $.ajax({
+            url: '/logout?token=' + token,
+            method: 'get',
+            success: function(data) {
+                localStorage.removeItem('x-access-token');
+                token = null;
+                if (data.status == 403) {
+                    alert('使用者狀態錯誤');
+                } else if (data.status == 400) {
+                    alert('您過久未進行操作，已自動將您登出');
+                } else {
+                    alert('登出成功！');
+                }
+                location.href = '/';
+            }, error: function(err) {
+                localStorage.removeItem('x-access-token');
+                token = null;
+                location.href = '/';
+            }
+        });
     }
 </script>
 <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">

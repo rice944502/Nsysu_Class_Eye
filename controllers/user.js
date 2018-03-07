@@ -144,8 +144,16 @@ var login = (email, password, ip) => {
 	});
 };
 
+var logout = (email) => {
+	var cache = redis.createClient(redisConfig.port, redisConfig.host);
+	if (cache.exists(email)) {
+		cache.del(email);
+	}
+}
+
 module.exports = {
 	register,
 	registerVerify,
-	login
+	login,
+	logout
 };

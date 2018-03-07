@@ -72,6 +72,11 @@ router.use((req, res, next) => {
 	}
 });
 
+router.get('/logout', (req, res, next) => {
+	user.logout(req.body.user);
+	res.status(200).json('ok');
+});
+
 router.get('/share', (req, res, next) => {
 	share.searchShare(req.body.year, req.body.department, req.body.classname, req.body.teachername)
 		.then((result) => {
