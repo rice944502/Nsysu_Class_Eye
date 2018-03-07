@@ -1,13 +1,13 @@
 <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
     window.onload = () => {
-        if (localStorage['x-access-token']) {
-            token = localStorage['x-access-token'];
-            document.getElementsByTagName('form')[0].innerHTML = `
+        if ($.cookie('x-access-token')) {
+            $('form')[0].innerHTML = `
                 <a href="/profile" class="btn btn-secondary my-2 my-sm-0">Profile</a>
-                <input type="button" class="btn btn-primary my-2 my-sm-0" onclick='logout()' value="Logout">`
+                <input type="button" class="btn btn-primary my-2 my-sm-0" onclick='logout()' value="Logout">`;
         } else {
-            document.getElementsByTagName('form')[0].innerHTML = '<a href="/login" class="btn btn-secondary my-2 my-sm-0">Login</a>';
+            $('form')[0].innerHTML = '<a href="/login" class="btn btn-secondary my-2 my-sm-0">Login</a>';
         }
     }
     var logout = () => {

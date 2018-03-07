@@ -40,7 +40,8 @@ router.get('/', function(req, res, next) {
 
 router.use((req, res, next) => {
 	if (req.headers['cookie']) {
-    req.body.token = req.query.token = req.headers['cookie'];
+    var token = req.headers['cookie'];
+    req.body.token = req.query.token = token.substr(token.search('=') + 1, token.search(';') == -1 ? token.length : token.search(';') - token.search('=') - 1);
   }
   next();
 });
@@ -51,7 +52,7 @@ router.get('/login', function(req, res, next) {
 
 router.post('/login', async function(req, res, next) {
   var data = await callPostApi('login', req.body);
-  res.cookie('x-access-token', JSON.parse(data.body).token, {maxAge: 60 * 1000 * 10, httpOnly: true});
+  res.cookie('x-access-token', JSON.parse(data.body).token, {maxAge: 60 * 1000 * 10});
   res.json(data);
 });
 
