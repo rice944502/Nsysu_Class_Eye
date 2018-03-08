@@ -35,14 +35,20 @@ var toShare = (user, year, department, classname, teachername, experience, getsc
 var searchShare = (year, department, classname, teachername) => {
 	//status: [0, 1] => [success, server error]
 	return new Promise((resolve, reject) => {
-		var searchData = {
-			department: { [Op.like]: '%' + department + '%' },
-			classname: { [Op.like]: '%' + classname + '%' },
-			teachername: { [Op.like]: '%' + teachername + '%' }
-		};
-		if (year != '*') {
+		var searchData = {};
+		if (year != 'all') {
 			searchData.year = { [Op.like]: '%' + year + '%' };
 		}
+		if (department != 'all') {
+			searchData.department = { [Op.like]: '%' + department + '%'};
+		}
+		if (classname) {
+			searchData.classname = { [Op.like]: '%' + classname + '%' };
+		}
+		if (teachername) {
+			searchData.teachername = { [Op.like]: '%' + teachername + '%' };
+		}
+		console.log(searchData)
 		Shares.findAll({ where: searchData })
 			.then((data) => {
 				resolve({status: 0, data: data});

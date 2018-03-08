@@ -78,7 +78,7 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.get('/share', (req, res, next) => {
-	share.searchShare(req.body.year, req.body.department, req.body.classname, req.body.teachername)
+	share.searchShare(req.query.year, req.query.department, req.query.classname, req.query.teachername)
 		.then((result) => {
 			res.status(200).json(result.data)
 		})
