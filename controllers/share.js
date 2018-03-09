@@ -48,7 +48,6 @@ var searchShare = (year, department, classname, teachername) => {
 		if (teachername) {
 			searchData.teachername = { [Op.like]: '%' + teachername + '%' };
 		}
-		console.log(searchData)
 		Shares.findAll({ where: searchData })
 			.then((data) => {
 				resolve({status: 0, data: data});
