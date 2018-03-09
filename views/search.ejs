@@ -10,7 +10,7 @@
   <body>
   <%- include('navbar.ejs', {active: 'search'}) %>
   <div class="container">
-    <form action="searchClass" method="post">
+    <form action="searchClass" method="get">
       <legend>Search class</legend>
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">開課年度</label>
@@ -50,7 +50,57 @@
         <button type="submit" class="btn btn-outline-primary col-sm-12">Search class!</button>
       </div>
     </form>
+
+    <% if (typeof error != 'undefined') { %>
+    <h1 class="text-danger text-center"><%= error %></h1>
+    <% } %>
+
+    <% if (typeof searchData != 'undefined') { %>
+      <div class="row">
+        <% for(var i=0; i<searchData.length; i++) { %>
+          <div id="search<%= i %>" class="col-sm-6 row-margin-top">
+            <div class="card">
+              <div class="card-header" id="heading<%= i %>">
+                <h5>
+                  <legend>
+                    <%= searchData[i].year + " " + searchData[i].department + " " + searchData[i].classname + " " + searchData[i].teachername %>
+                  </legend>
+                  <p>獲得分數：<%= searchData[i].getscore %>,
+                     推薦指數：<%= searchData[i].recommendscore %>,
+                     學習指數：<%= searchData[i].learnscore %>,
+                     涼課指數：<%= searchData[i].coolscore %>
+                  </p>
+                  <div class="d-flex">
+                    <div>
+                      <img src="./images/like.png" /> <%= searchData[i].like %>
+                      <img src="./images/dislike.png" /> <%= searchData[i].dislike %>
+                    </div>
+                    <button class="btn btn-link btn ml-auto" data-toggle="collapse" data-target="#collapse<%= i %>" aria-expanded="false" aria-controls="collapse<%= i %>">
+                      看評價
+                    </button>
+                  </div>
+                </h5>
+              </div>
+              <div id="collapse<%= i %>" class="collapse" aria-labelledby="heading<%= i %>" data-parent="#search<%= i %>">
+                <div class="card-body">
+                  <h5><%= searchData[i].experience %></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    <% } %>
   </div>
+
   <%- include footer.ejs %>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script>
+    $('form[action=searchClass]').submit((e) =>{
+      if ($.cookie('x-access-token')) {
+
+      }
+    });
+  </script>
   </body>
 </html>

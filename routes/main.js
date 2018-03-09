@@ -93,6 +93,18 @@ router.get('/search', async function(req, res, next) {
   res.render('search', { title: config.title, data: JSON.parse(data.body) });
 });
 
+router.get('/searchClass', async function(req, res, next) {
+  var classData = await callGetApi('classData');
+  var searchData = await callGetApi('share', req.query);
+  if (searchData.status == 200) {
+    res.render('search', { title: config.title, data: JSON.parse(classData.body), searchData: JSON.parse(searchData.body) });
+  } else if (searchData.status == 403) {
+    res.render('search', { title: config.title, data: JSON.parse(classData.body), error: '尚未登入或過久未進行操作！' });
+  } else {
+    res.render('search', { title: config.title, data: JSON.parse(classData.body), error: '操作失敗！請稍後再試！' });
+  }
+});
+
 router.get('/share', async function(req, res, next) {
   var data = await callGetApi('classData');
   res.render('share', { title: config.title, data: JSON.parse(data.body), score: [config.score, config.assess] });
