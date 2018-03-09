@@ -5,11 +5,7 @@ var config = require('../config/global');
 
 var callGetApi = (url, sendData) => {
   return new Promise((resolve, reject) => {
-    url += '?';
-    for(var obj in sendData) {
-      url += obj + '=' + sendData[obj] + '&';
-    }
-    request(config.host + url, (err, res, body) => {
+    request(config.host + url, { qs: sendData }, (err, res, body) => {
       if (!err) {
         resolve({status: res.statusCode, body: body});
       } else {
