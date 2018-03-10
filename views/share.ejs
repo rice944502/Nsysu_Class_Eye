@@ -10,6 +10,7 @@
   <body>
   <%- include('navbar.ejs', {active: 'share'}) %>
   <div class="container">
+    <% if (typeof error == undefined) { %>
     <form action="shareClass" method="post">
       <legend>Share your experience</legend>
       <div class="form-group row">
@@ -80,6 +81,9 @@
         <input type="submit" class="btn btn-outline-primary col-sm-12" value="Share your experience!" >
       </div>
     </form>
+    <% } else { %>
+    <h1 class="text-danger text-center"><%= error %></h1>
+    <% } %>
   </div>
   <%- include footer.ejs %>
   <script>
