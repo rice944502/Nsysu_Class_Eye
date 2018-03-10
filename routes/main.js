@@ -119,8 +119,8 @@ router.get('/ask', function(req, res, next) {
   res.render('ask', { title: config.title });
 });
 
-router.post('/ask', function(req, res, next) {
-  // TODO
+router.post('/ask', async function(req, res, next) {
+  let data = await callPostApi('ask', req.body);
   res.redirect('/question');
 });
 
