@@ -99,6 +99,15 @@ router.post('/share', (req, res, next) => {
 		})
 });
 
+router.get('/question', async (req, res, next) => {
+	try {
+		let data = await question.getQuestion(req.query.title);
+		res.status(200).json({data});
+	} catch(err) {
+		res.status(400).json({err});
+	}
+});
+
 router.post('/ask', (req, res, next) => {
 	question.askQuestion(req.body.user, req.body.identity, req.body.title, req.body.content)
 		.then((data) =>{

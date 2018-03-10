@@ -124,14 +124,15 @@ router.post('/ask', async function(req, res, next) {
   res.redirect('/question');
 });
 
-router.get('/question', function(req, res, next) {
-  // TODO
-  res.render('question', { title: config.title });
+router.get('/question', async function(req, res, next) {
+  let data = await callGetApi('question', req.query);
+  if (data.status == 200) {
+    res.render('question', { title: config.title, data: JSON.parse(data.body).data.data });
+  } else if (data.status == 403) {
+    res.render('question', { title: config.title, error: '尚未登入或過久未進行操作！' });
+  } else {
+    res.render('question', { title: config.title, error: '操作失敗！請稍後再試！' });
+  }
 });
-
-router.post('/question', function(req, res, next) {
-  // TODO
-  res.redirect('/question');
-})
 
 module.exports = router;
