@@ -11,7 +11,6 @@ const askQuestion = (email, identity, title, content) => {
                     title: title,
                     content: content
                 };
-                console.log(sendData)
                 Questions.build(sendData).save()
                     .then((success) => {
                         resolve({status: 0});
