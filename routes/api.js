@@ -6,6 +6,7 @@ var secret = require('../config/secret.json');
 var user = require('../controllers/user');
 var	share = require('../controllers/share');
 var spider = require('../controllers/spider');
+var question = require('../controllers/question');
 
 router.post('/register', (req, res, next) => {
 	user.register(req.body.email, req.body.password, req.body.confirm, req.body.department, req.body.nickname)
@@ -91,6 +92,16 @@ router.post('/share', (req, res, next) => {
 	//(user, department, classname, teachername, experience, getscore, coolscore, learnscore, recommendscore)
 	share.toShare(req.body.user, req.body.year, req.body.department, req.body.classname, req.body.teachername, req.body.experience, req.body.getscore, req.body.coolscore, req.body.learnscore, req.body.recommendscore)
 		.then((data) => {
+			res.status(200).json({data});
+		})
+		.catch((err) => {
+			res.status(400).json({err});
+		})
+});
+
+router.post('/ask', (req, res, next) => {
+	question.askQuestion(req.body.user, req.body.identity, req.body.title, req.body.content)
+		.then((data) =>{
 			res.status(200).json({data});
 		})
 		.catch((err) => {
