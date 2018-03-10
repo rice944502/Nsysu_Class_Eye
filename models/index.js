@@ -141,6 +141,9 @@ const Questions = sequelize.define('questions', {
 	editer: {
 		type: Sequelize.STRING
 	},
+	identity: {
+		type: Sequelize.STRING
+	},
 	like: {
 		type: Sequelize.INTEGER,
 		defaultValue: 0
