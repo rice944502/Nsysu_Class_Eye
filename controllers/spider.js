@@ -45,7 +45,7 @@ var getDeparmentList = new Promise(function(resolve, reject) {
 			}
 			resolve(res);
 		} else {
-			reject(error);
+			reject(err);
 		}
 	});
 });
